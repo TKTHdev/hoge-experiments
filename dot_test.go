@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-const N = 10240000
+const N = 102400000
 
 func BenchmarkDotNaive(b *testing.B) {
 	x := make([]float32, N)
@@ -70,7 +70,7 @@ func BenchmarkDotConcurrent(b *testing.B) {
 	DotConcurrent(x, y)
 }
 
-func BenchmarkDotConcurrentAVX2(b *testing.B) {
+func BenchmarkDot8ConcurrentAVX2(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
@@ -78,5 +78,16 @@ func BenchmarkDotConcurrentAVX2(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotConcurrentAVX2(x, y)
+	Dot8ConcurrentAVX2(x, y)
+}
+
+func BenchmarkDot16ConcurrentAVX2(b *testing.B){
+	x := make([]float32, N)
+	y := make([]float32, N)
+	for i := 0; i < N; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
+	}
+	b.ResetTimer()
+	Dot16ConcurrentAVX2(x, y)
 }
