@@ -258,3 +258,5 @@ func Dot32ConcurrentAVX2(a, b []float32) float32 {
 	}
 	return totalSum
 }
+
+func DotVNNI(a, b []float32) float32

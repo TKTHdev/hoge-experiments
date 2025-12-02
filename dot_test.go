@@ -48,6 +48,7 @@ func BenchmarkDotUnroll4Optimized(b *testing.B) {
 	DotUnroll4Optimized(x, y)
 }
 
+
 func BenchmarkDotAVX2(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
@@ -57,6 +58,17 @@ func BenchmarkDotAVX2(b *testing.B) {
 	}
 	b.ResetTimer()
 	DotAVX2(x, y)
+}
+
+func BenchmarkDotVNNI(b *testing.B) {
+	x := make([]float32, N)
+	y := make([]float32, N)
+	for i := 0; i < N; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
+	}
+	b.ResetTimer()
+	DotVNNI(x, y)
 }
 
 func BenchmarkDot2Concurrent(b *testing.B) {
