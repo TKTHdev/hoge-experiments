@@ -12,7 +12,9 @@ func BenchmarkDotNaive(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotNaive(x, y)
+	for i := 0; i < b.N; i++ {
+		DotNaive(x, y)
+	}
 }
 
 func BenchmarkDotUnroll4(b *testing.B) {
@@ -23,7 +25,9 @@ func BenchmarkDotUnroll4(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotUnroll4(x, y)
+	for i := 0; i < b.N; i++ {
+		DotUnroll4(x, y)
+	}
 }
 
 func BenchmarkDotUnroll8(b *testing.B) {
@@ -34,7 +38,9 @@ func BenchmarkDotUnroll8(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotUnroll8(x, y)
+	for i := 0; i < b.N; i++ {
+		DotUnroll8(x, y)
+	}
 }
 
 func BenchmarkDotUnroll4Optimized(b *testing.B) {
@@ -45,9 +51,10 @@ func BenchmarkDotUnroll4Optimized(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotUnroll4Optimized(x, y)
+	for i := 0; i < b.N; i++ {
+		DotUnroll4Optimized(x, y)
+	}
 }
-
 
 func BenchmarkDotAVX2(b *testing.B) {
 	x := make([]float32, N)
@@ -57,7 +64,9 @@ func BenchmarkDotAVX2(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotAVX2(x, y)
+	for i := 0; i < b.N; i++ {
+		DotAVX2(x, y)
+	}
 }
 
 func BenchmarkDotVNNI(b *testing.B) {
@@ -68,7 +77,9 @@ func BenchmarkDotVNNI(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	DotVNNI(x, y)
+	for i := 0; i < b.N; i++ {
+		DotVNNI(x, y)
+	}
 }
 
 func BenchmarkDot2Concurrent(b *testing.B) {
@@ -79,7 +90,9 @@ func BenchmarkDot2Concurrent(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot2Concurrent(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot2Concurrent(x, y)
+	}
 }
 
 func BenchmarkDot4Concurrent(b *testing.B) {
@@ -90,7 +103,9 @@ func BenchmarkDot4Concurrent(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot4Concurrent(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot4Concurrent(x, y)
+	}
 }
 
 func BenchmarkDot8Concurrent(b *testing.B) {
@@ -101,7 +116,9 @@ func BenchmarkDot8Concurrent(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot8Concurrent(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot8Concurrent(x, y)
+	}
 }
 
 func BenchmarkDot16Concurrent(b *testing.B) {
@@ -112,7 +129,9 @@ func BenchmarkDot16Concurrent(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot16Concurrent(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot16Concurrent(x, y)
+	}
 }
 
 func BenchmarkDot4ConcurrentAVX2(b *testing.B) {
@@ -123,7 +142,9 @@ func BenchmarkDot4ConcurrentAVX2(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot4ConcurrentAVX2(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot4ConcurrentAVX2(x, y)
+	}
 }
 
 func BenchmarkDot8ConcurrentAVX2(b *testing.B) {
@@ -134,7 +155,9 @@ func BenchmarkDot8ConcurrentAVX2(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot8ConcurrentAVX2(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot8ConcurrentAVX2(x, y)
+	}
 }
 
 func BenchmarkDot16ConcurrentAVX2(b *testing.B) {
@@ -145,5 +168,7 @@ func BenchmarkDot16ConcurrentAVX2(b *testing.B) {
 		y[i] = float32(i)
 	}
 	b.ResetTimer()
-	Dot16ConcurrentAVX2(x, y)
+	for i := 0; i < b.N; i++ {
+		Dot16ConcurrentAVX2(x, y)
+	}
 }
