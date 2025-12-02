@@ -73,7 +73,6 @@ func DotUnroll4Optimized(a, b []float32) float32 {
 	for i := 0; i < length; i += 4 {
 		_ = a[i+3]
 		_ = b[i+3]
-
 		sum0 += a[i] * b[i]
 		sum1 += a[i+1] * b[i+1]
 		sum2 += a[i+2] * b[i+2]
@@ -89,3 +88,27 @@ func DotUnroll4Optimized(a, b []float32) float32 {
 }
 
 func DotAVX2(a, b []float32) float32
+
+
+func DotConcurrentAVX2(a, b []float32) float32 {
+	numGoroutines := 8
+	length := len(a)
+	blockPerGoRoutine := length / numGoroutines
+	results := make(chan float32, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		start := i * blockPerGoRoutine
+		end := start + blockPerGoRoutine
+		if i == numGoroutines-1 {
+			end = length
+		}
+		go func(start, end int) {
+            partialSum := DotAVX2(a[start:end], b[start:end])
+			results <- partialSum
+		}(start, end)
+	}
+	totalSum := float32(0)
+	for i := 0; i < numGoroutines; i++ {
+		totalSum += <-results
+	}
+	return totalSum
+}
