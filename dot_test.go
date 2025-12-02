@@ -81,7 +81,7 @@ func BenchmarkDot8ConcurrentAVX2(b *testing.B) {
 	Dot8ConcurrentAVX2(x, y)
 }
 
-func BenchmarkDot16ConcurrentAVX2(b *testing.B){
+func BenchmarkDot16ConcurrentAVX2(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
