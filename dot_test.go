@@ -70,6 +70,17 @@ func BenchmarkDotConcurrent(b *testing.B) {
 	DotConcurrent(x, y)
 }
 
+func BenchmarkDot4ConcurrentAVX2(b *testing.B) {
+	x := make([]float32, N)
+	y := make([]float32, N)
+	for i := 0; i < N; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
+	}
+	b.ResetTimer()
+	Dot4ConcurrentAVX2(x, y)
+}
+
 func BenchmarkDot8ConcurrentAVX2(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
