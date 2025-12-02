@@ -8,32 +8,6 @@ func DotNaive(a, b []float32) float32 {
 	return sum
 }
 
-func DotConcurrent(a, b []float32) float32 {
-	numGoroutines := 8
-	length := len(a)
-	blockPerGoRoutine := length / numGoroutines
-	results := make(chan float32, numGoroutines)
-	for i := 0; i < numGoroutines; i++ {
-		start := i * blockPerGoRoutine
-		end := start + blockPerGoRoutine
-		if i == numGoroutines-1 {
-			end = length
-		}
-		go func(start, end int) {
-			partialSum := float32(0)
-			for j := start; j < end; j++ {
-				partialSum += a[j] * b[j]
-			}
-			results <- partialSum
-		}(start, end)
-	}
-	totalSum := float32(0)
-	for i := 0; i < numGoroutines; i++ {
-		totalSum += <-results
-	}
-	return totalSum
-}
-
 func DotUnroll4(a, b []float32) float32 {
 	sum := float32(0)
 	for i := 0; i < len(a); i += 4 {
@@ -85,6 +59,110 @@ func DotUnroll4Optimized(a, b []float32) float32 {
 		total += a[i] * b[i]
 	}
 	return total
+}
+
+func Dot2Concurrent(a, b []float32) float32 {
+	numGoroutines := 2
+	length := len(a)
+	blockPerGoRoutine := length / numGoroutines
+	results := make(chan float32, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		start := i * blockPerGoRoutine
+		end := start + blockPerGoRoutine
+		if i == numGoroutines-1 {
+			end = length
+		}
+		go func(start, end int) {
+			partialSum := float32(0)
+			for j := start; j < end; j++ {
+				partialSum += a[j] * b[j]
+			}
+			results <- partialSum
+		}(start, end)
+	}
+	totalSum := float32(0)
+	for i := 0; i < numGoroutines; i++ {
+		totalSum += <-results
+	}
+	return totalSum
+}
+
+func Dot4Concurrent(a, b []float32) float32 {
+	numGoroutines := 4
+	length := len(a)
+	blockPerGoRoutine := length / numGoroutines
+	results := make(chan float32, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		start := i * blockPerGoRoutine
+		end := start + blockPerGoRoutine
+		if i == numGoroutines-1 {
+			end = length
+		}
+		go func(start, end int) {
+			partialSum := float32(0)
+			for j := start; j < end; j++ {
+				partialSum += a[j] * b[j]
+			}
+			results <- partialSum
+		}(start, end)
+	}
+	totalSum := float32(0)
+	for i := 0; i < numGoroutines; i++ {
+		totalSum += <-results
+	}
+	return totalSum
+}
+
+func Dot8Concurrent(a, b []float32) float32 {
+	numGoroutines := 8
+	length := len(a)
+	blockPerGoRoutine := length / numGoroutines
+	results := make(chan float32, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		start := i * blockPerGoRoutine
+		end := start + blockPerGoRoutine
+		if i == numGoroutines-1 {
+			end = length
+		}
+		go func(start, end int) {
+			partialSum := float32(0)
+			for j := start; j < end; j++ {
+				partialSum += a[j] * b[j]
+			}
+			results <- partialSum
+		}(start, end)
+	}
+	totalSum := float32(0)
+	for i := 0; i < numGoroutines; i++ {
+		totalSum += <-results
+	}
+	return totalSum
+}
+
+func Dot16Concurrent(a, b []float32) float32 {
+	numGoroutines := 16
+	length := len(a)
+	blockPerGoRoutine := length / numGoroutines
+	results := make(chan float32, numGoroutines)
+	for i := 0; i < numGoroutines; i++ {
+		start := i * blockPerGoRoutine
+		end := start + blockPerGoRoutine
+		if i == numGoroutines-1 {
+			end = length
+		}
+		go func(start, end int) {
+			partialSum := float32(0)
+			for j := start; j < end; j++ {
+				partialSum += a[j] * b[j]
+			}
+			results <- partialSum
+		}(start, end)
+	}
+	totalSum := float32(0)
+	for i := 0; i < numGoroutines; i++ {
+		totalSum += <-results
+	}
+	return totalSum
 }
 
 func DotAVX2(a, b []float32) float32
