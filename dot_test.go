@@ -4,51 +4,68 @@ import "testing"
 
 const N = 102400000
 
-func BenchmarkDotNaive(b *testing.B){
+func BenchmarkDotNaive(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
 		x[i] = float32(i)
 		y[i] = float32(i)
 	}
-	b.StartTimer()
+	b.ResetTimer()
 	DotNaive(x, y)
-	b.ResetTimer()
 }
 
-func BenchmarkDotUnroll4(b *testing.B){
+func BenchmarkDotUnroll4(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
 		x[i] = float32(i)
 		y[i] = float32(i)
 	}
-	b.StartTimer()
+	b.ResetTimer()
 	DotUnroll4(x, y)
-	b.ResetTimer()
 }
 
-func BenchmarkDotUnroll8(b *testing.B){
+func BenchmarkDotUnroll8(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
 		x[i] = float32(i)
 		y[i] = float32(i)
 	}
-	b.StartTimer()
+	b.ResetTimer()
 	DotUnroll8(x, y)
-	b.ResetTimer()
 }
 
-
-func BenchmarkDotUnroll4Optimized(b *testing.B){
+func BenchmarkDotUnroll4Optimized(b *testing.B) {
 	x := make([]float32, N)
 	y := make([]float32, N)
 	for i := 0; i < N; i++ {
 		x[i] = float32(i)
 		y[i] = float32(i)
 	}
-	b.StartTimer()
-	DotUnroll4Optimized(x, y)
 	b.ResetTimer()
+	DotUnroll4Optimized(x, y)
+}
+
+func BenchmarkDotAVX2(b *testing.B) {
+	x := make([]float32, N)
+	y := make([]float32, N)
+	for i := 0; i < N; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
+	}
+	b.ResetTimer()
+	DotAVX2(x, y)
+}
+
+func BenchmarkDotConcurrent(b *testing.B) {
+	x := make([]float32, N)
+	y := make([]float32, N)
+	for i := 0; i < N; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
+	}
+	b.ResetTimer()
+	DotConcurrent(x, y)
 }
